@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cachi Bloom — Postre Peruano Contemporáneo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream:      #FAF7F2;
+    --blush:      #F2DDD5;
+    --sage:       #D4E0D0;
+    --lavender:   #DDD5E8;
+    --peach:      #F5C9A8;
+    --mauve:      #C8B4C2;
+    --warm-white: #FDFAF6;
+    --text-dark:  #3A3530;
+    --text-mid:   #6B6058;
+    --text-light: #9A9088;
+    --accent:     #B89B8A;
+    --line:       rgba(168,150,138,0.25);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background-color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text-dark);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 56px;
+    background: rgba(250,247,242,0.88);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300; letter-spacing: 0.12em;
+    color: var(--text-dark);
+  }
+  .nav-logo span { font-style: italic; color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-mid); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--text-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 56px 80px 80px;
+  }
+  .eyebrow {
+    font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .eyebrow::before {
+    content: ''; display: block;
+    width: 32px; height: 1px; background: var(--accent);
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 6vw, 86px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2vw, 24px);
+    font-weight: 300; font-style: italic;
+    color: var(--text-mid); margin-bottom: 40px;
+  }
+  .hero-desc {
+    max-width: 420px;
+    font-size: 14.5px; color: var(--text-mid); line-height: 1.8;
+    margin-bottom: 52px;
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    padding: 8px 18px;
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 11.5px; letter-spacing: 0.08em;
+    color: var(--text-mid);
+    background: var(--warm-white);
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .tag:hover { background: var(--blush); border-color: var(--mauve); }
+
+  .hero-right {
+    background: var(--blush);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-visual {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+  }
+  /* SVG Plato decorativo */
+  .plate-wrapper {
+    position: relative; width: 420px; height: 420px;
+    animation: float 6s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%,100% { transform: translateY(0px); }
+    50%      { transform: translateY(-18px); }
+  }
+  .deco-circle {
+    position: absolute; border-radius: 50%;
+    opacity: 0.35;
+  }
+  .dc1 { width: 380px; height: 380px; top:20px; left:20px;
+    background: radial-gradient(circle at 35% 35%, var(--peach), transparent 70%); }
+  .dc2 { width: 260px; height: 260px; top:80px; left:80px;
+    background: radial-gradient(circle at 60% 40%, var(--lavender), transparent 70%); }
+  .dc3 { width: 180px; height: 180px; top:120px; left:120px;
+    background: radial-gradient(circle at 50% 50%, var(--sage), transparent 70%);
+    opacity: 0.5; }
+
+  .plate-inner {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .plate-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px; font-weight: 300;
+    color: rgba(58,53,48,0.06);
+    line-height: 1; user-select: none;
+  }
+  .plate-badge {
+    position: absolute; bottom: -20px; left: 50%;
+    transform: translateX(-50%);
+    background: var(--warm-white);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: 10px 24px;
+    font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); white-space: nowrap;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 100px 80px; }
+  .section-label {
+    font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after {
+    content: ''; flex: 1; height: 1px; background: var(--line);
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 3.5vw, 50px);
+    font-weight: 300; color: var(--text-dark);
+    margin-bottom: 56px; line-height: 1.15;
+  }
+  .section-title em { font-style: italic; color: var(--accent); }
+
+  /* ── FICHA TÉCNICA ── */
+  #ficha { background: var(--warm-white); }
+
+  .ficha-grid {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    gap: 1px; background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-bottom: 56px;
+  }
+  .ficha-cell {
+    background: var(--warm-white);
+    padding: 36px 32px;
+    transition: background 0.3s;
+  }
+  .ficha-cell:hover { background: var(--cream); }
+  .ficha-cell-label {
+    font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 10px;
+  }
+  .ficha-cell-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400;
+    color: var(--text-dark); line-height: 1.2;
+  }
+  .ficha-cell-sub {
+    font-size: 12.5px; color: var(--text-mid); margin-top: 6px;
+  }
+  .ficha-cell.span2 { grid-column: span 2; }
+
+  /* ── INGREDIENTES ── */
+  #ingredientes { background: var(--sage); }
+
+  .ing-list {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .ing-card {
+    background: var(--warm-white);
+    border-radius: 2px;
+    padding: 28px 24px;
+    border: 1px solid rgba(255,255,255,0.7);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: default;
+  }
+  .ing-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.07);
+  }
+  .ing-icon {
+    font-size: 28px; margin-bottom: 14px;
+    display: block;
+  }
+  .ing-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    color: var(--text-dark); margin-bottom: 6px;
+  }
+  .ing-detail {
+    font-size: 12.5px; color: var(--text-mid); line-height: 1.6;
+  }
+  .ing-badge {
+    display: inline-block; margin-top: 12px;
+    padding: 4px 12px;
+    background: var(--sage);
+    border-radius: 100px;
+    font-size: 10.5px; letter-spacing: 0.1em;
+    color: var(--text-mid);
+  }
+
+  /* ── PERFIL ── */
+  #perfil { background: var(--lavender); }
+
+  .perfil-split {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 56px;
+  }
+  .perfil-block {}
+  .perfil-block-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px; font-weight: 300;
+    color: var(--text-dark); margin-bottom: 28px;
+  }
+
+  .sabor-bars { display: flex; flex-direction: column; gap: 20px; }
+  .sabor-item {}
+  .sabor-header { display: flex; justify-content: space-between;
+    margin-bottom: 8px; }
+  .sabor-label { font-size: 12.5px; color: var(--text-mid); }
+  .sabor-pct { font-size: 12.5px; color: var(--text-light); }
+  .bar-track {
+    height: 3px; background: rgba(255,255,255,0.5);
+    border-radius: 2px; overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%; border-radius: 2px;
+    background: var(--mauve);
+    transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+  }
+
+  .texturas-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .textura-item {
+    background: rgba(255,255,255,0.5);
+    border-radius: 2px; padding: 20px 18px;
+    border: 1px solid rgba(255,255,255,0.7);
+    transition: background 0.3s;
+  }
+  .textura-item:hover { background: rgba(255,255,255,0.8); }
+  .textura-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-weight: 400;
+    color: var(--text-dark); margin-bottom: 4px;
+  }
+  .textura-desc { font-size: 12px; color: var(--text-mid); }
+
+  /* ── VALORES NUTRICIONALES ── */
+  #nutricion { background: var(--peach); }
+
+  .nutri-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .nutri-card {
+    background: var(--warm-white);
+    border-radius: 2px; padding: 28px 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.7);
+    transition: transform 0.3s;
+  }
+  .nutri-card:hover { transform: translateY(-3px); }
+  .nutri-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 40px; font-weight: 300;
+    color: var(--text-dark); line-height: 1;
+    margin-bottom: 4px;
+  }
+  .nutri-unit { font-size: 14px; color: var(--text-mid); }
+  .nutri-name {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-light); margin-top: 10px;
+  }
+
+  /* ── PROCESO ── */
+  #proceso { background: var(--cream); }
+
+  .proceso-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    position: relative;
+  }
+  .proceso-steps::before {
+    content: '';
+    position: absolute; top: 28px; left: 10%; right: 10%;
+    height: 1px; background: var(--line);
+    z-index: 0;
+  }
+  .step {
+    padding: 0 24px 0 0;
+    position: relative; z-index: 1;
+  }
+  .step-num {
+    width: 56px; height: 56px;
+    background: var(--warm-white);
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 300;
+    color: var(--text-mid);
+    margin-bottom: 28px;
+    transition: all 0.3s;
+  }
+  .step:hover .step-num {
+    background: var(--blush);
+    border-color: var(--mauve);
+    color: var(--text-dark);
+  }
+  .step-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400;
+    color: var(--text-dark); margin-bottom: 10px;
+  }
+  .step-desc { font-size: 13px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ── CONCEPTO VISUAL ── */
+  #concepto {
+    background: var(--blush);
+    display: flex; align-items: center;
+    gap: 80px;
+  }
+  .concepto-text { flex: 1; }
+  .concepto-palette { flex: 0 0 300px; }
+
+  .concepto-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 2.5vw, 36px);
+    font-weight: 300; font-style: italic;
+    line-height: 1.5; color: var(--text-dark);
+    margin-bottom: 32px;
+    padding-left: 28px;
+    border-left: 2px solid var(--mauve);
+  }
+  .concepto-body {
+    font-size: 14px; color: var(--text-mid); line-height: 1.85;
+    max-width: 500px;
+  }
+
+  .palette-title {
+    font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-light); margin-bottom: 20px;
+  }
+  .swatches { display: flex; flex-direction: column; gap: 10px; }
+  .swatch {
+    display: flex; align-items: center; gap: 16px;
+    padding: 14px 18px;
+    background: var(--warm-white);
+    border-radius: 2px;
+    border: 1px solid rgba(255,255,255,0.8);
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .swatch:hover { transform: translateX(4px); }
+  .swatch-color {
+    width: 36px; height: 36px;
+    border-radius: 50%; flex-shrink: 0;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+  .swatch-info {}
+  .swatch-name { font-size: 13px; color: var(--text-dark); margin-bottom: 2px; }
+  .swatch-hex { font-size: 11px; color: var(--text-light); font-family: monospace; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark);
+    padding: 56px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px; font-weight: 300; letter-spacing: 0.1em;
+    color: var(--cream);
+  }
+  .footer-logo span { font-style: italic; color: var(--peach); }
+  .footer-note {
+    font-size: 11.5px; color: rgba(250,247,242,0.4);
+    letter-spacing: 0.12em;
+    text-align: right; line-height: 1.6;
+  }
+
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 360px; }
+    section { padding: 72px 24px; }
+    .ficha-grid { grid-template-columns: 1fr 1fr; }
+    .ing-list { grid-template-columns: 1fr 1fr; }
+    .perfil-split { grid-template-columns: 1fr; }
+    .nutri-grid { grid-template-columns: repeat(3, 1fr); }
+    .proceso-steps { grid-template-columns: 1fr 1fr; gap: 40px; }
+    .proceso-steps::before { display: none; }
+    #concepto { flex-direction: column; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .footer-note { text-align: center; }
+    .hero-left { padding: 60px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Cachi <span>Bloom</span></div>
+  <ul class="nav-links">
+    <li><a href="#ficha">Ficha</a></li>
+    <li><a href="#ingredientes">Ingredientes</a></li>
+    <li><a href="#perfil">Perfil</a></li>
+    <li><a href="#nutricion">Nutrición</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#concepto">Concepto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <p class="eyebrow">Postre Peruano Contemporáneo</p>
+    <h1 class="hero-title">Cachi<br><em>Bloom</em></h1>
+    <p class="hero-subtitle">Flor de Cacao & Algarrobina</p>
+    <p class="hero-desc">
+      Una experiencia sensorial que honra los sabores originarios del Perú — cacao criollo, algarrobina del norte y lúcuma andina — en una composición sin azúcares añadidos, diseñada para el paladar contemporáneo.
+    </p>
+    <div class="tags">
+      <span class="tag">Sin azúcar</span>
+      <span class="tag">Sin gluten</span>
+      <span class="tag">Plant-based</span>
+      <span class="tag">Superfoods andinos</span>
+      <span class="tag">Alta pastelería</span>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-visual">
+      <div class="plate-wrapper">
+        <div class="deco-circle dc1"></div>
+        <div class="deco-circle dc2"></div>
+        <div class="deco-circle dc3"></div>
+        <div class="plate-inner">
+          <div class="plate-number">①</div>
+          <div class="plate-badge">Signature Dessert 2025</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FICHA TÉCNICA -->
+<section id="ficha">
+  <p class="section-label">01</p>
+  <h2 class="section-title reveal">Ficha <em>Técnica</em></h2>
+
+  <div class="ficha-grid reveal">
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Nombre del Plato</div>
+      <div class="ficha-cell-value">Cachi Bloom</div>
+      <div class="ficha-cell-sub">«Cachi» — dulce en quechua</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Categoría</div>
+      <div class="ficha-cell-value">Postre Frío</div>
+      <div class="ficha-cell-sub">Degustación / Menú Principal</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Endulzante</div>
+      <div class="ficha-cell-value">Cero azúcar</div>
+      <div class="ficha-cell-sub">Stevia + Monk fruit</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Temperatura de Servicio</div>
+      <div class="ficha-cell-value">4 – 6 °C</div>
+      <div class="ficha-cell-sub">Servir inmediatamente al emplatar</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Tiempo de Preparación</div>
+      <div class="ficha-cell-value">4 horas</div>
+      <div class="ficha-cell-sub">Incluye tiempos de reposo y montaje</div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Rendimiento</div>
+      <div class="ficha-cell-value">8 porciones</div>
+      <div class="ficha-cell-sub">Molde 20 × 5 cm + micro-jardín</div>
+    </div>
+    <div class="ficha-cell span2">
+      <div class="ficha-cell-label">Descripción del Plato</div>
+      <div class="ficha-cell-value" style="font-size:18px; line-height:1.5">
+        Mousse de cacao criollo sobre base de algarrobina fermentada,<br>
+        corona de espuma de lúcuma y tierra de quinoa tostada,<br>
+        con micro-flores de sachatomate.
+      </div>
+    </div>
+    <div class="ficha-cell">
+      <div class="ficha-cell-label">Origen de Ingredientes</div>
+      <div class="ficha-cell-value">100% Perú</div>
+      <div class="ficha-cell-sub">Trazabilidad certificada</div>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTES -->
+<section id="ingredientes">
+  <p class="section-label">02</p>
+  <h2 class="section-title reveal">Ingredientes <em>Clave</em></h2>
+  <div class="ing-list">
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🍫</span>
+      <div class="ing-name">Cacao Criollo</div>
+      <div class="ing-detail">Variedad nativa del Cusco, con notas de frutos rojos y madera. Base del mousse principal, procesado en frío para conservar antioxidantes.</div>
+      <span class="ing-badge">Antioxidante</span>
+    </div>
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🌿</span>
+      <div class="ing-name">Algarrobina</div>
+      <div class="ing-detail">Extracto natural del algarrobo piurano. Textura densa, sabor caramelizado sin azúcar. Actúa como base y aglutinante natural.</div>
+      <span class="ing-badge">Bajo índice glucémico</span>
+    </div>
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🌕</span>
+      <div class="ing-name">Lúcuma</div>
+      <div class="ing-detail">Fruta andina de sabor dulce y cremoso. Endulzante natural con fibra, hierro y zinc. Espuma aireada para la corona del postre.</div>
+      <span class="ing-badge">Superfood andino</span>
+    </div>
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🌾</span>
+      <div class="ing-name">Quinoa Tostada</div>
+      <div class="ing-detail">Semilla proteica tostada en seco a 180 °C. Aporta la «tierra» crujiente que contrasta con las texturas cremosas del postre.</div>
+      <span class="ing-badge">Alto en proteína</span>
+    </div>
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🍒</span>
+      <div class="ing-name">Sachatomate</div>
+      <div class="ing-detail">Tomate de árbol peruano con notas cítricas y tropicales. Micro-flores confitadas en stevia aportan color y acidez final.</div>
+      <span class="ing-badge">Vitamina C</span>
+    </div>
+
+    <div class="ing-card reveal">
+      <span class="ing-icon">🥥</span>
+      <div class="ing-name">Crema de Coco</div>
+      <div class="ing-detail">Crema vegetal usada como base del mousse. Sustituye la crema de leche convencional manteniendo la untuosidad característica.</div>
+      <span class="ing-badge">Plant-based</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- PERFIL DE SABOR Y TEXTURAS -->
+<section id="perfil">
+  <p class="section-label">03</p>
+  <h2 class="section-title reveal">Perfil de <em>Sabor & Texturas</em></h2>
+
+  <div class="perfil-split">
+    <div class="perfil-block reveal">
+      <h3 class="perfil-block-title">Notas de Sabor</h3>
+      <div class="sabor-bars">
+        <div class="sabor-item">
+          <div class="sabor-header"><span class="sabor-label">Amargo suave (cacao)</span><span class="sabor-pct">72%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:72%"></div></div>
+        </div>
+        <div class="sabor-item">
+          <div class="sabor-header"><span class="sabor-label">Dulce natural (lúcuma)</span><span class="sabor-pct">60%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:60%"></div></div>
+        </div>
+        <div class="sabor-item">
+          <div class="sabor-header"><span class="sabor-label">Umami vegetal (algarrobina)</span><span class="sabor-pct">45%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:45%"></div></div>
+        </div>
+        <div class="sabor-item">
+          <div class="sabor-header"><span class="sabor-label">Cítrico floral (sachatomate)</span><span class="sabor-pct">30%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:30%"></div></div>
+        </div>
+        <div class="sabor-item">
+          <div class="sabor-header"><span class="sabor-label">Tostado crocante (quinoa)</span><span class="sabor-pct">25%</span></div>
+          <div class="bar-track"><div class="bar-fill" style="width:25%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="perfil-block reveal">
+      <h3 class="perfil-block-title">Mapa de Texturas</h3>
+      <div class="texturas-grid">
+        <div class="textura-item">
+          <div class="textura-name">Aireado</div>
+          <div class="textura-desc">Mousse de cacao batido en frío, densidad 0.35 g/ml</div>
+        </div>
+        <div class="textura-item">
+          <div class="textura-name">Denso</div>
+          <div class="textura-desc">Base de algarrobina semi-gelificada con agar-agar</div>
+        </div>
+        <div class="textura-item">
+          <div class="textura-name">Crujiente</div>
+          <div class="textura-desc">Tierra de quinoa tostada con aceite de coco virgen</div>
+        </div>
+        <div class="textura-item">
+          <div class="textura-name">Espumoso</div>
+          <div class="textura-desc">Corona de lúcuma emulsionada con lecitina de girasol</div>
+        </div>
+        <div class="textura-item">
+          <div class="textura-name">Gelatinoso</div>
+          <div class="textura-desc">Velo de cacao al 0.5% agar, capa exterior translúcida</div>
+        </div>
+        <div class="textura-item">
+          <div class="textura-name">Fresco</div>
+          <div class="textura-desc">Micro-flores de sachatomate confitadas a baja temperatura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NUTRICIÓN -->
+<section id="nutricion">
+  <p class="section-label">04</p>
+  <h2 class="section-title reveal">Valores <em>Nutricionales</em></h2>
+  <p style="font-size:13px; color:var(--text-mid); margin-bottom:48px;" class="reveal">Por porción de 120g — Sin azúcares añadidos · Sin harinas refinadas</p>
+
+  <div class="nutri-grid reveal">
+    <div class="nutri-card">
+      <div class="nutri-num">186</div>
+      <div class="nutri-unit">kcal</div>
+      <div class="nutri-name">Calorías</div>
+    </div>
+    <div class="nutri-card">
+      <div class="nutri-num">8g</div>
+      <div class="nutri-unit">proteína</div>
+      <div class="nutri-name">Proteína</div>
+    </div>
+    <div class="nutri-card">
+      <div class="nutri-num">14g</div>
+      <div class="nutri-unit">grasas</div>
+      <div class="nutri-name">Grasas Buenas</div>
+    </div>
+    <div class="nutri-card">
+      <div class="nutri-num">18g</div>
+      <div class="nutri-unit">carbos</div>
+      <div class="nutri-name">Carbohidratos</div>
+    </div>
+    <div class="nutri-card">
+      <div class="nutri-num">0g</div>
+      <div class="nutri-unit">azúcar</div>
+      <div class="nutri-name">Azúcar Añadida</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section id="proceso">
+  <p class="section-label">05</p>
+  <h2 class="section-title reveal">Proceso de <em>Elaboración</em></h2>
+
+  <div class="proceso-steps">
+    <div class="step reveal">
+      <div class="step-num">01</div>
+      <div class="step-title">Base Algarrobina</div>
+      <div class="step-desc">Calentar algarrobina a 45 °C con agar-agar (1.2 g/L) y monk fruit. Verter en molde y refrigerar 2 horas hasta gelificación firme.</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">02</div>
+      <div class="step-title">Mousse de Cacao</div>
+      <div class="step-desc">Fundir cacao criollo al 72% con crema de coco. Enfriar a 28 °C y batir con stevia hasta obtener mousse aireado. Refrigerar 30 min.</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">03</div>
+      <div class="step-title">Tierra Crujiente</div>
+      <div class="step-desc">Tostar quinoa en seco 8 min a 180 °C. Enfriar y mezclar con aceite de coco virgen y ralladura de lima. Reservar a temperatura ambiente.</div>
+    </div>
+    <div class="step reveal">
+      <div class="step-num">04</div>
+      <div class="step-title">Montaje & Micro-jardín</div>
+      <div class="step-desc">Disponer la base, aplicar el mousse con manga, corona de espuma de lúcuma. Finalizar con tierra, flores de sachatomate y polvo de cacao.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONCEPTO VISUAL -->
+<section id="concepto">
+  <div class="concepto-text reveal">
+    <p class="section-label">06</p>
+    <h2 class="section-title">Concepto <em>Visual</em></h2>
+    <blockquote class="concepto-quote">
+      «La belleza de la Amazonía<br>en la austeridad de los Andes»
+    </blockquote>
+    <p class="concepto-body">
+      El diseño del plato evoca un jardín botánico a pequeña escala: capas de tierra y niebla andina. La paleta cromática extrae los tonos terrosos del cacao, la neblina gris-verde de la puna y el coral suave del sachatomate maduro. La presentación sigue la filosofía <em>ma</em> japonesa adaptada al contexto peruano: espacio vacío intencional que realza cada elemento.
+    </p>
+  </div>
+  <div class="concepto-palette reveal">
+    <p class="palette-title">Paleta del Plato</p>
+    <div class="swatches">
+      <div class="swatch">
+        <div class="swatch-color" style="background:#4A2520;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Cacao Oscuro</div>
+          <div class="swatch-hex">#4A2520</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#8B5E3C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Algarrobina</div>
+          <div class="swatch-hex">#8B5E3C</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#E8C87A;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Lúcuma Dorada</div>
+          <div class="swatch-hex">#E8C87A</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#C84B3C;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Sachatomate</div>
+          <div class="swatch-hex">#C84B3C</div>
+        </div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-color" style="background:#B8C4A8;"></div>
+        <div class="swatch-info">
+          <div class="swatch-name">Quinoa Sage</div>
+          <div class="swatch-hex">#B8C4A8</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Cachi <span>Bloom</span></div>
+  <div class="footer-note">
+    Propuesta conceptual — Alta Pastelería Peruana Contemporánea<br>
+    Chef Pastelero · Diseñador Gráfico Gastronómico · 2025
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger reveals within same parent
+  document.querySelectorAll('.ing-list, .ficha-grid, .nutri-grid, .proceso-steps, .texturas-grid').forEach(parent => {
+    parent.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i * 80) + 'ms';
+    });
+  });
+
+  // Bar fill animation on scroll
+  const bars = document.querySelectorAll('.bar-fill');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.width = entry.target.style.width;
+      }
+    });
+  });
+  bars.forEach(b => barObserver.observe(b));
+</script>
+</body>
+</html>
