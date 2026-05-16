@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabor Norteño | Restaurante de Comida Peruana en Tacna</title>
+    <style>
+        /* --- VARIABLES DE DISEÑO (Colores y Fuentes) --- */
+        :root {
+            --color-principal: #C82333;   /* Rojo gastronómico */
+            --color-secundario: #E9741D;  /* Naranja cálido */
+            --color-fondo: #FDFBF7;       /* Beige claro para el fondo */
+            --color-oscuro: #2B2523;      /* Marrón oscuro para textos */
+            --color-blanco: #FFFFFF;
+            --fuente-titulos: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --fuente-cuerpo: 'Arial', sans-serif;
+            --sombra-suave: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --borde-redondeado: 12px;
+        }
+
+        /* --- ESTILOS GENERALES --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--fuente-cuerpo);
+            background-color: var(--color-fondo);
+            color: var(--color-oscuro);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--fuente-titulos);
+            font-weight: 700;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn-principal {
+            display: inline-block;
+            background-color: var(--color-secundario);
+            color: var(--color-blanco);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-principal:hover {
+            background-color: #d66213;
+            transform: translateY(-2px);
+        }
+
+        /* --- 1. HEADER / ENCABEZADO --- */
+        header {
+            background-color: var(--color-blanco);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        header .contenedor {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 26px;
+            color: var(--color-principal);
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: var(--color-secundario);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav ul li a {
+            font-size: 16px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: var(--color-principal);
+        }
+
+        /* --- 2. SECCIÓN HERO --- */
+        .hero {
+            margin-top: 80px;
+            height: calc(85vh - 80px);
+            min-height: 450px;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+                        url('https://images.unsplash.com/photo-1546069901-ba9599a7e63c?q=80&w=1600&auto=format&fit=crop') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--color-blanco);
+        }
+
+        .hero-contenido {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* --- ESTILOS DE SECCIONES COMUNES --- */
+        section {
+            padding: 80px 0;
+        }
+
+        .titulo-seccion {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 50px;
+            position: relative;
+            color: var(--color-principal);
+        }
+
+        .titulo-seccion::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--color-secundario);
+            margin: 10px auto 0 auto;
+            border-radius: 2px;
+        }
+
+        /* --- 3. SECCIÓN CARTA / MENÚ --- */
+        .grilla-menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .tarjeta-plato {
+            background-color: var(--color-blanco);
+            border-radius: var(--borde-redondeado);
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+            transition: transform 0.3s ease;
+        }
+
+        .tarjeta-plato:hover {
+            transform: translateY(-5px);
+        }
+
+        .imagen-plato {
+            height: 220px;
+            width: 100%;
+            object-fit: cover;
+            background-color: #eee;
+        }
+
+        .info-plato {
+            padding: 25px;
+        }
+
+        .header-plato {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .header-plato h3 {
+            font-size: 20px;
+            color: var(--color-oscuro);
+        }
+
+        .precio-plato {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--color-principal);
+            white-space: nowrap;
+        }
+
+        .descripcion-plato {
+            font-size: 14px;
+            color: #666;
+        }
+
+        /* --- 4. SECCIÓN NOSOTROS --- */
+        .nosotros {
+            background-color: #F5EFE6; /* Variación de beige ligeramente más cálida */
+        }
+
+        .contenido-nosotros {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .texto-nosotros {
+            flex: 1;
+        }
+
+        .texto-nosotros p {
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: var(--color-oscuro);
+        }
+
+        .imagen-nosotros {
+            flex: 1;
+            border-radius: var(--borde-redondeado);
+            box-shadow: var(--sombra-suave);
+            max-height: 400px;
+            object-fit: cover;
+        }
+
+        /* --- 5. SECCIÓN HORARIOS Y CONTACTO --- */
+        .bloque-contacto {
+            display: flex;
+            gap: 40px;
+        }
+
+        .info-contacto {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .item-contacto {
+            margin-bottom: 25px;
+        }
+
+        .item-contacto h3 {
+            font-size: 18px;
+            color: var(--color-secundario);
+            margin-bottom: 5px;
+        }
+
+        .item-contacto p {
+            font-size: 16px;
+            color: var(--color-oscuro);
+        }
+
+        .mapa-contacto {
+            flex: 1;
+            height: 350px;
+            border-radius: var(--borde-redondeado);
+            overflow: hidden;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .mapa-contacto iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- 6. FOOTER --- */
+        footer {
+            background-color: var(--color-oscuro);
+            color: var(--color-blanco);
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .redes-sociales {
+            margin-bottom: 20px;
+        }
+
+        .redes-sociales a {
+            margin: 0 15px;
+            font-weight: bold;
+            font-size: 15px;
+            transition: color 0.3s ease;
+            color: #bbb;
+        }
+
+        .redes-sociales a:hover {
+            color: var(--color-secundario);
+        }
+
+        .creditos {
+            font-size: 14px;
+            color: #888;
+            margin-top: 10px;
+        }
+
+        /* --- DISEÑO RESPONSIVE (Celulares y Tablets) --- */
+        @media (max-width: 768px) {
+            header .contenedor {
+                flex-direction: column;
+                justify-content: center;
+                height: auto;
+                padding: 15px 0;
+                gap: 10px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            .hero {
+                margin-top: 110px;
+                height: 60vh;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .contenido-nosotros, .bloque-contacto {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .imagen-nosotros {
+                width: 100%;
+                order: -1; /* Mueve la imagen arriba en celular */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. HEADER / ENCABEZADO -->
+    <header>
+        <div class="contenedor">
+            <div class="logo">
+                <strong>Sabor</strong><span>Norteño</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#carta">Carta</a></li>
+                    <li><a href="#nosotros">Nosotros</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 2. SECCIÓN HERO -->
+    <section id="inicio" class="hero">
+        <div class="contenedor">
+            <div class="hero-contenido">
+                <h1>Tradición y Sabor Norteño en Tacna</h1>
+                <p>Disfruta de la mejor herencia culinaria del norte peruano, preparada con ingredientes frescos, pasión y el sazón único que nos caracteriza por más de 8 años.</p>
+                <a href="#carta" class="btn-principal">Ver Carta</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. SECCIÓN CARTA / MENÚ -->
+    <section id="carta">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Nuestra Carta</h2>
+            <div class="grilla-menu">
+                
+                <!-- Plato 1 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1626132647523-66f5bf380027?q=80&w=600&auto=format&fit=crop" alt="Arroz con Pato" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Arroz con Pato</h3>
+                            <span class="precio-plato">S/ 38.00</span>
+                        </div>
+                        <p class="descripcion-plato">Tierno pato de corral macerado en chicha de jora, servido sobre arroz sazonado con cilantro fresco y ají amarillo.</p>
+                    </div>
+                </div>
+
+                <!-- Plato 2 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=600&auto=format&fit=crop" alt="Seco de Cabrito" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Seco de Cabrito</h3>
+                            <span class="precio-plato">S/ 36.00</span>
+                        </div>
+                        <p class="descripcion-plato">Cabrito de leche cocinado a fuego lento con loche, cilantro y chicha de jora. Acompañado de frijoles cremosos y yuca.</p>
+                    </div>
+                </div>
+
+                <!-- Plato 3 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?q=80&w=600&auto=format&fit=crop" alt="Ceviche" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Ceviche Tradicional</h3>
+                            <span class="precio-plato">S/ 32.00</span>
+                        </div>
+                        <p class="descripcion-plato">Cubos de pescado fresco marinados en puro jugo de limón norteño, acompañados de camote dulce, choclo y su infaltable zarandaja.</p>
+                    </div>
+                </div>
+
+                <!-- Plato 4 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?q=80&w=600&auto=format&fit=crop" alt="Lomo Saltado" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Lomo Saltado</h3>
+                            <span class="precio-plato">S/ 35.00</span>
+                        </div>
+                        <p class="descripcion-plato">Jugosos trozos de lomo fino salteados al wok con cebolla, tomate, ají amarillo y un toque de pisco. Servido con papas fritas y arroz.</p>
+                    </div>
+                </div>
+
+                <!-- Plato 5 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1565557623262-b51c2513a641?q=80&w=600&auto=format&fit=crop" alt="Ají de Gallina" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Ají de Gallina</h3>
+                            <span class="precio-plato">S/ 28.00</span>
+                        </div>
+                        <p class="descripcion-plato">Pechuga de gallina deshilachada en una crema perfecta a base de ají amarillo, pan y leche. Servido con papas nativas, huevo y aceituna.</p>
+                    </div>
+                </div>
+
+                <!-- Plato 6 -->
+                <div class="tarjeta-plato">
+                    <img src="https://images.unsplash.com/photo-1585238342024-78d387f4a707?q=80&w=600&auto=format&fit=crop" alt="Causa Limeña" class="imagen-plato">
+                    <div class="info-plato">
+                        <div class="header-plato">
+                            <h3>Causa Limeña</h3>
+                            <span class="precio-plato">S/ 24.00</span>
+                        </div>
+                        <p class="descripcion-plato">Suave masa de papa amarilla sazonada con ají amarillo y limón, rellena de pulpa de pollo, palta fresca y mayonesa de la casa.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. SECCIÓN NOSOTROS -->
+    <section id="nosotros" class="nosotros">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Nosotros</h2>
+            <div class="contenido-nosotros">
+                <div class="texto-nosotros">
+                    <p><strong>Sabor Norteño</strong> nació hace 8 años en la heroica ciudad de Tacna con un propósito claro: traer la auténtica y vibrante gastronomía del norte del Perú a los hogares tacneños y a todos los turistas que visitan nuestra bella región.</p>
+                    <p>Nuestra misión es brindar una experiencia inolvidable a través del paladar, respetando las recetas tradicionales heredadas de nuestros ancestros y utilizando ingredientes frescos de la más alta calidad.</p>
+                    <p>Nos esforzamos cada día por mantener un ambiente cálido, familiar y un servicio al cliente que te haga sentir como en casa desde el primer momento.</p>
+                </div>
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=600&auto=format&fit=crop" alt="Cocina de Sabor Norteño" class="imagen-nosotros">
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECCIÓN HORARIOS Y CONTACTO -->
+    <section id="contacto">
+        <div class="contenedor">
+            <h2 class="titulo-seccion">Horarios y Contacto</h2>
+            <div class="bloque-contacto">
+                
+                <div class="info-contacto">
+                    <div class="item-contacto">
+                        <h3>Dirección</h3>
+                        <p>Av. Bolognesi Nro. 1245, Tacna, Perú</p>
+                    </div>
+                    <div class="item-contacto">
+                        <h3>Teléfono</h3>
+                        <p>+51 952 123 456 / (052) 424242</p>
+                    </div>
+                    <div class="item-contacto">
+                        <h3>Horario de Atención</h3>
+                        <p>Lunes a Domingo: 11:30 AM - 5:00 PM</p>
+                    </div>
+                    <div class="item-contacto">
+                        <h3>Correo Electrónico</h3>
+                        <p>contacto@sabornorteno.com</p>
+                    </div>
+                </div>
+
+                <div class="mapa-contacto">
+                    <!-- Mapa de Google Maps embebido (Ubicación referencial de Tacna Centro) -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3794.144415449737!2d-70.2536836!3d-18.0138974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915acf7da2369d27%3A0x6ec0c5a2df62e841!2sPlaza%20de%20Armas%20de%20Tacna!5e0!3m2!1ses-419!2spe!4v1710000000000!5m2!1ses-419!2spe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. FOOTER -->
+    <footer>
+        <div class="contenedor">
+            <div class="redes-sociales">
+                <a href="#">Facebook</a>
+                <a href="#">Instagram</a>
+                <a href="#">WhatsApp</a>
+            </div>
+            <p>&copy; 2026 Sabor Norteño. Todos los derechos reservados.</p>
+            <p class="creditos">Proyecto académico de Desarrollo Web Frontend</p>
+        </div>
+    </footer>
+
+</body>
+</html>
